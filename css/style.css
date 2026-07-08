@@ -1,0 +1,488 @@
+/* ==========================================
+   SINGAFLEX CATALOGUE LANDING PAGE
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    background:url("../images/hero.jpg") center center/cover fixed no-repeat;
+
+    color:#333;
+
+    position:relative;
+
+    min-height:100vh;
+
+}
+
+.overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(5,25,55,.78);
+
+    z-index:-1;
+
+}
+
+.container{
+
+    width:100%;
+
+    max-width:760px;
+
+    margin:50px auto;
+
+    padding:20px;
+
+}
+
+/* ======================
+   HERO
+====================== */
+
+.hero{
+
+    text-align:center;
+
+    margin-bottom:35px;
+
+}
+
+.logo{
+
+    width:120px;
+
+    margin-bottom:20px;
+
+}
+
+.hero h1{
+
+    font-size:52px;
+
+    color:#ffffff;
+
+    font-weight:700;
+
+    margin-bottom:8px;
+
+    letter-spacing:.5px;
+
+}
+
+.hero-subtitle{
+
+    color:#ffffff;
+
+    font-size:14px;
+
+    font-weight:500;
+
+    letter-spacing:3px;
+
+    text-transform:uppercase;
+
+}
+
+/* ======================
+   INTRO CARD
+====================== */
+
+.intro-box{
+
+    background:rgba(255,255,255,.12);
+
+    border:1px solid rgba(255,255,255,.25);
+
+    padding:30px;
+
+    border-radius:6px;
+
+    color:#ffffff;
+
+    text-align:center;
+
+    margin-bottom:35px;
+
+    backdrop-filter:blur(4px);
+
+}
+
+.intro-box p{
+
+    font-size:17px;
+
+    line-height:1.8;
+
+}
+
+/* ======================
+   FORM
+====================== */
+
+.form-card{
+
+    background:#ffffff;
+
+    border-top:5px solid #E31B23;
+
+    border-radius:6px;
+
+    padding:45px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.18);
+
+}
+
+.form-card h2{
+
+    text-align:center;
+
+    color:#E31B23;
+
+    font-size:34px;
+
+    font-weight:700;
+
+    margin-bottom:15px;
+
+    text-transform:uppercase;
+
+}
+
+.divider{
+
+    width:70px;
+
+    height:3px;
+
+    background:#E31B23;
+
+    margin:0 auto 35px;
+
+}
+
+.row{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:18px;
+
+}
+
+.field{
+
+    margin-bottom:20px;
+
+}
+
+.field label{
+
+    display:block;
+
+    font-size:12px;
+
+    font-weight:600;
+
+    color:#444;
+
+    margin-bottom:8px;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+
+}
+
+.field input,
+.field textarea{
+
+    width:100%;
+
+    padding:14px 16px;
+
+    border:1px solid #DADADA;
+
+    border-radius:4px;
+
+    font-size:15px;
+
+    font-family:'Poppins',sans-serif;
+
+    transition:.3s;
+
+}
+
+.field input:focus,
+.field textarea:focus{
+
+    outline:none;
+
+    border-color:#E31B23;
+
+    box-shadow:0 0 0 3px rgba(227,27,35,.12);
+
+}
+
+.field textarea{
+
+    resize:vertical;
+
+    min-height:120px;
+
+}
+
+/* ======================
+   CATALOGUE SECTION
+====================== */
+
+h3{
+
+    text-align:center;
+
+    font-size:24px;
+
+    font-weight:700;
+
+    color:#E31B23;
+
+    margin:35px 0 25px;
+
+    text-transform:uppercase;
+
+}
+
+.catalogue-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:14px;
+
+    margin-bottom:35px;
+
+}
+
+.catalogue-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:16px;
+
+    border:1px solid #E5E5E5;
+
+    border-radius:6px;
+
+    background:#FAFAFA;
+
+    cursor:pointer;
+
+    transition:all .25s ease;
+
+}
+
+.catalogue-item:hover{
+
+    border-color:#E31B23;
+
+    background:#FFF5F5;
+
+}
+
+.catalogue-item input{
+
+    width:18px;
+
+    height:18px;
+
+    accent-color:#E31B23;
+
+}
+
+.catalogue-item span{
+
+    font-size:15px;
+
+    font-weight:500;
+
+    color:#333;
+
+}
+
+/* ======================
+   BUTTON
+====================== */
+
+.submit-section{
+
+    margin-top:35px;
+
+}
+
+.submit-btn{
+
+    width:100%;
+
+    padding:18px;
+
+    background:#E31B23;
+
+    color:#fff;
+
+    border:none;
+
+    border-radius:4px;
+
+    font-size:16px;
+
+    font-weight:700;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+
+    cursor:pointer;
+
+    transition:all .25s ease;
+
+}
+
+.submit-btn:hover{
+
+    background:#C9141C;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 10px 20px rgba(227,27,35,.25);
+
+}
+
+/* ======================
+   FOOTER
+====================== */
+
+footer{
+
+    text-align:center;
+
+    color:#fff;
+
+    margin:45px 0 25px;
+
+}
+
+.footer-logo{
+
+    width:90px;
+
+    margin-bottom:20px;
+
+}
+
+.footer-email,
+.footer-website{
+
+    font-size:15px;
+
+    margin:6px 0;
+
+}
+
+.copyright{
+
+    margin-top:20px;
+
+    font-size:13px;
+
+    opacity:.85;
+
+}
+
+/* ======================
+   MOBILE
+====================== */
+
+@media (max-width:768px){
+
+.container{
+
+    max-width:100%;
+
+    padding:18px;
+
+}
+
+.logo{
+
+    width:95px;
+
+}
+
+.hero h1{
+
+    font-size:40px;
+
+}
+
+.hero-subtitle{
+
+    font-size:12px;
+
+    letter-spacing:2px;
+
+}
+
+.form-card{
+
+    padding:28px;
+
+}
+
+.form-card h2{
+
+    font-size:28px;
+
+}
+
+.row{
+
+    grid-template-columns:1fr;
+
+}
+
+.catalogue-grid{
+
+    grid-template-columns:1fr;
+
+}
+
+.submit-btn{
+
+    font-size:15px;
+
+    padding:16px;
+
+}
+
+}
