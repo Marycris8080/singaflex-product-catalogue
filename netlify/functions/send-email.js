@@ -19,6 +19,40 @@ exports.handler = async (event) => {
       },
     });
 
+    // Google Drive links
+    const catalogueLinks = {
+      "Composite Hose":
+        "https://drive.google.com/drive/folders/1XomIMMNTL1j1iKPoyttvUic58Wc19wdR?usp=sharing",
+
+      "Expansion Joint":
+        "https://drive.google.com/drive/folders/16maT2CyXUFOs2_LN9AkIlANNeXJ03ODu?usp=drive_link",
+
+      "Polylock":
+        "https://drive.google.com/drive/folders/1s-8o0nQY38H1p1o5Tv27zlIyO423C26t?usp=drive_link",
+
+      "PTFE Hose":
+        "https://drive.google.com/drive/folders/1g6_HgcC8RA6nRWmz8uJfO51ixEgDB_7d?usp=drive_link",
+
+      "Rubber Flexible Joint":
+        "https://drive.google.com/drive/folders/1A4h2KdSydD9Rlj21se4N2y95rukAOgrz?usp=drive_link",
+
+      "Stainless Steel Flexible Hose":
+        "https://drive.google.com/drive/folders/1ld7vYHPq1SXeJyEw2NTSwAN588aR92OX?usp=drive_link",
+    };
+
+    const catalogueList = (data.catalogues || [])
+      .map(
+        (catalogue) => `
+          <li>
+            <strong>${catalogue}</strong><br>
+            <a href="${catalogueLinks[catalogue]}">
+              Download ${catalogue}
+            </a>
+          </li>
+        `
+      )
+      .join("");
+
     // Email to customer
     await transporter.sendMail({
       from: `"Singaflex" <${process.env.GMAIL_USER}>`,
@@ -29,15 +63,25 @@ exports.handler = async (event) => {
 
         <p>Dear ${data.fullname},</p>
 
-        <p>We have received your catalogue request.</p>
+        <p>Thank you for your interest in Singaflex.</p>
 
-        <p>Our sales team will review your request and send you the requested catalogues shortly.</p>
+        <p>You can download the catalogue(s) you requested using the links below:</p>
 
-        <p>Thank you,<br>Singaflex</p>
+        <ul>
+          ${catalogueList}
+        </ul>
+
+        <p>If you require additional technical information or a quotation, simply reply to this email and our sales team will be happy to assist you.</p>
+
+        <br>
+
+        <p>Best Regards,</p>
+
+        <p><strong>Singaflex</strong></p>
       `,
     });
 
-    // Notification email to your inbox
+    // Notification email to Sales
     await transporter.sendMail({
       from: `"Singaflex Website" <${process.env.GMAIL_USER}>`,
       to: process.env.GMAIL_USER,
@@ -48,13 +92,17 @@ exports.handler = async (event) => {
         <p><strong>Name:</strong> ${data.fullname}</p>
         <p><strong>Company:</strong> ${data.company}</p>
         <p><strong>Email:</strong> ${data.email}</p>
-        <p><strong>Phone:</strong> ${data.phone}</p>
-        <p><strong>Country:</strong> ${data.country}</p>
-        <p><strong>Industry:</strong> ${data.industry}</p>
+        <p><strong>Phone:</strong> ${data.phone || "-"}</p>
+        <p><strong>Country:</strong> ${data.country || "-"}</p>
+        <p><strong>Industry:</strong> ${data.industry || "-"}</p>
 
-        <p><strong>Catalogues Requested:</strong></p>
+        <h3>Requested Catalogues</h3>
 
-        <pre>${JSON.stringify(data.catalogues, null, 2)}</pre>
+        <ul>
+          ${(data.catalogues || [])
+            .map((c) => `<li>${c}</li>`)
+            .join("")}
+        </ul>
 
         <p><strong>Comments:</strong></p>
 
