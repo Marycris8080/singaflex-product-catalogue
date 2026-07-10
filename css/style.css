@@ -211,6 +211,7 @@ body{
 }
 
 .field input,
+.field select,
 .field textarea{
 
     width:100%;
@@ -226,6 +227,18 @@ body{
     font-family:'Poppins',sans-serif;
 
     transition:.3s;
+
+    background:#fff;
+
+    color:#333;
+
+}
+
+.field select{
+
+    height:50px;
+
+    cursor:pointer;
 
 }
 
