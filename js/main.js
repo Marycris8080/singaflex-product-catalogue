@@ -14,6 +14,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const phone = form.querySelector('[name="phone"]');
         const country = form.querySelector('[name="country"]');
         const industry = form.querySelector('[name="industry"]');
+
+        const leadSource = form.querySelector('[name="leadSource"]');
+        const eventName = form.querySelector('[name="eventName"]');
+
         const comments = form.querySelector('[name="comments"]');
 
         const catalogues = Array.from(
@@ -23,7 +27,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (
             fullName.value.trim() === "" ||
             company.value.trim() === "" ||
-            email.value.trim() === ""
+            email.value.trim() === "" ||
+            leadSource.value.trim() === ""
         ) {
             alert("Please complete all required fields.");
             return;
@@ -50,6 +55,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         try {
 
+            alert(
+  JSON.stringify({
+    leadSource: leadSource.value,
+    eventName: eventName.value
+  }, null, 2)
+);
             const response = await fetch(
                 "/.netlify/functions/send-email",
                 {
@@ -68,6 +79,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         phone: phone.value,
                         country: country.value,
                         industry: industry.value,
+                        leadSource: leadSource.value,
+                        eventName: eventName.value,
                         comments: comments.value,
                         catalogues: catalogues
 
