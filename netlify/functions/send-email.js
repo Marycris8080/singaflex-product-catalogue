@@ -10,15 +10,20 @@ exports.handler = async (event) => {
   }
 
   try {
-    const data = JSON.parse(event.body);
+  const data = JSON.parse(event.body);
+  console.log(JSON.stringify(data, null, 2));
 
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_PASS,
-      },
-    });
+  console.log("Received data:", data);
+  console.log("Lead Source:", data.leadSource);
+  console.log("Event Name:", data.eventName);
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_PASS,
+    },
+  });
 
     // Google Drive links
     const catalogueLinks = {
