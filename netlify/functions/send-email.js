@@ -1,4 +1,5 @@
 const nodemailer = require("nodemailer");
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxPFV-tOvh28rUPCCtJg2_FbQPkHdEYCIfFqK0y92kBzb_EdmzIpqmqQKk8k9eKEYjeUA/exec";
 
 exports.handler = async (event) => {
   if (event.httpMethod !== "POST") {
@@ -53,7 +54,7 @@ exports.handler = async (event) => {
       )
       .join("");
 
-    // Email to customer
+    // Customer Email
     await transporter.sendMail({
       from: `"Singaflex" <${process.env.GMAIL_USER}>`,
       to: data.email,
@@ -71,6 +72,14 @@ exports.handler = async (event) => {
           ${catalogueList}
         </ul>
 
+        <p><strong>Where did you hear about us?</strong> ${data.leadSource}</p>
+
+        ${
+          data.eventName
+            ? `<p><strong>Event Name:</strong> ${data.eventName}</p>`
+            : ""
+        }
+
         <p>If you require additional technical information or a quotation, simply reply to this email and our sales team will be happy to assist you.</p>
 
         <br>
@@ -81,7 +90,7 @@ exports.handler = async (event) => {
       `,
     });
 
-    // Notification email to Sales
+    // Admin Notification
     await transporter.sendMail({
       from: `"Singaflex Website" <${process.env.GMAIL_USER}>`,
       to: process.env.GMAIL_USER,
@@ -95,6 +104,10 @@ exports.handler = async (event) => {
         <p><strong>Phone:</strong> ${data.phone || "-"}</p>
         <p><strong>Country:</strong> ${data.country || "-"}</p>
         <p><strong>Industry:</strong> ${data.industry || "-"}</p>
+
+        <p><strong>Where did you hear about us?</strong> ${data.leadSource}</p>
+
+        <p><strong>Event Name:</strong> ${data.eventName || "-"}</p>
 
         <h3>Requested Catalogues</h3>
 
@@ -110,12 +123,52 @@ exports.handler = async (event) => {
       `,
     });
 
+  try {
+
+  const sheetResponse = await fetch(GOOGLE_SCRIPT_URL, {
+
+    method: "POST",
+
+    headers: {
+      "Content-Type": "application/json"
+    },
+
+    body: JSON.stringify({
+
+      fullname: data.fullname,
+      company: data.company,
+      email: data.email,
+      phone: data.phone,
+      country: data.country,
+      industry: data.industry,
+      leadSource: data.leadSource,
+      eventName: data.eventName,
+      catalogues: data.catalogues,
+      comments: data.comments
+
+    })
+
+  });
+
+  if (!sheetResponse.ok) {
+  throw new Error(`Google Sheets returned ${sheetResponse.status}`);
+}
+
+console.log("Google Sheets updated successfully.");
+
+} catch (err) {
+
+  console.error("Failed to write to Google Sheets:", err);
+
+}
+
     return {
       statusCode: 200,
       body: JSON.stringify({
         success: true,
       }),
     };
+
   } catch (error) {
     console.error(error);
 
