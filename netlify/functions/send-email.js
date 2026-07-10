@@ -150,11 +150,14 @@ exports.handler = async (event) => {
 
   });
 
-  if (!sheetResponse.ok) {
+  const responseText = await sheetResponse.text();
+
+console.log("Google Sheets Status:", sheetResponse.status);
+console.log("Google Sheets Response:", responseText);
+
+if (!sheetResponse.ok) {
   throw new Error(`Google Sheets returned ${sheetResponse.status}`);
 }
-
-console.log("Google Sheets updated successfully.");
 
 } catch (err) {
 
